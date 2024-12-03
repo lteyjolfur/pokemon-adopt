@@ -8,11 +8,16 @@ const GENDER = {
     female: 2
 }
 
+type Move = {
+    name:string, type:string
+}
+
+
 type PokemonDetails = {
     name: string;
     sprite: string;
     hdSprite: string;
-    selectedMoves?: {name:string, type:string}[]
+    selectedMoves?: Move[]
   };
 
 const FALLBACK_SPRITE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/185.png';
@@ -37,10 +42,10 @@ const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> =
 
       if (genderRate === -1) {
         console.log(`${species.name} is genderless.`);
-        const gender = GENDER.none;
+        //const gender = GENDER.none;
       } else {
         const femalePercentage = (genderRate / 8) * 100;
-        const malePercentage = 100 - femalePercentage;
+        //const malePercentage = 100 - femalePercentage;
       }
 
       const moves = pokemon.moves.map(move => move.move.name);
@@ -94,7 +99,7 @@ export default async function Pokemon() {
      {name}
         <div>
         Moves:
-        {selectedMoves?.map((move:any) => {
+        {selectedMoves?.map((move:Move) => {
             return <><span key={move.name}>{move.name} {move.type}</span> <br/></>
         })}
         </div>
