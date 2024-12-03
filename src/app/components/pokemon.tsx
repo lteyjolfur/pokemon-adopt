@@ -12,6 +12,7 @@ type PokemonDetails = {
     name: string;
     sprite: string;
     hdSprite: string;
+    selectedMoves?: {name:string, type:string}[]
   };
 
 const FALLBACK_SPRITE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/185.png';
@@ -93,7 +94,7 @@ export default async function Pokemon() {
      {name}
         <div>
         Moves:
-        {selectedMoves.map((move) => {
+        {selectedMoves?.map((move:any) => {
             return <><span key={move.name}>{move.name} {move.type}</span> <br/></>
         })}
         </div>
