@@ -2,11 +2,11 @@ import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 import Image from "next/image";
 
-const GENDER = {
-    none: 0,
-    male: 1,
-    female: 2
-}
+// const GENDER = {
+//     none: 0,
+//     male: 1,
+//     female: 2
+// }
 
 type Move = {
     name:string, type:string
@@ -44,7 +44,7 @@ const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> =
         console.log(`${species.name} is genderless.`);
         //const gender = GENDER.none;
       } else {
-        const femalePercentage = (genderRate / 8) * 100;
+        //const femalePercentage = (genderRate / 8) * 100;
         //const malePercentage = 100 - femalePercentage;
       }
 
