@@ -1,6 +1,7 @@
 import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 import Image from "next/image";
+export const dynamic = "force-dynamic";
 
 // const GENDER = {
 //     none: 0,
