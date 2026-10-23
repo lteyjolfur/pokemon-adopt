@@ -1,6 +1,7 @@
 import Pokedex from 'pokedex-promise-v2';
 const P = new Pokedex();
 import Image from "next/image";
+import { pickRandomMoves, pickSprites, randomPokemonNumber, type Move } from "../../lib/pokemon";
 export const dynamic = "force-dynamic";
 
 // const GENDER = {
@@ -8,10 +9,6 @@ export const dynamic = "force-dynamic";
 //     male: 1,
 //     female: 2
 // }
-
-type Move = {
-    name:string, type:string
-}
 
 
 type PokemonDetails = {
@@ -21,8 +18,6 @@ type PokemonDetails = {
     selectedMoves?: Move[]
   };
 
-const FALLBACK_SPRITE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/185.png';
-
 
 const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> => {
     try {
@@ -31,8 +26,7 @@ const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> =
       const species = await P.getPokemonSpeciesByName(pokemonNumber);
       // Extract the name and sprite
       const name = pokemon.name;
-      const sprite = pokemon.sprites.front_default || FALLBACK_SPRITE;
-      const hdSprite = pokemon.sprites.other['official-artwork'].front_default || FALLBACK_SPRITE;
+      const { sprite, hdSprite } = pickSprites(pokemon.sprites);
 
      console.log(pokemon.stats);
 
@@ -63,7 +57,7 @@ const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> =
       );
   
       // Randomly select 4 moves
-      const selectedMoves = moveDetails.sort(() => 0.5 - Math.random()).slice(0, 4);
+      const selectedMoves = pickRandomMoves(moveDetails, 4);
   
       console.log(`Randomly selected moves for ${pokemon.name}:`);
       selectedMoves.forEach(move => {
@@ -85,7 +79,7 @@ const getPokemonDetails = async (pokemonNumber:number):Promise<PokemonDetails> =
 
 export default async function Pokemon() {
     // max 1025
-    const {name,hdSprite,selectedMoves} = await getPokemonDetails(Math.ceil(Math.random() * 151));
+    const {name,hdSprite,selectedMoves} = await getPokemonDetails(randomPokemonNumber(151));
     //const {name,hdSprite} = await getPokemonDetails(146);
 
 
